@@ -23,19 +23,19 @@ Run the generator:
 python apollo.py
 When prompted:
 Provide the path to your contacts file (CSV/XLSX/XLS).
-Choose whether to customize the email template. If you answer "no", the built-in 180DC IIT Kharagpur template is used. If "yes", you can supply your own description, tone, key points, and template text (placeholders like $FIRST_NAME, $LAST_NAME, $COMPANY, $EMAIL_BODY are supported).
+Choose whether to customize the email template. If you answer "no", the built-in IFSA IIT Kharagpur template is used. If "yes", you can supply your own description, tone, key points, and template text (placeholders like $FIRST_NAME, $LAST_NAME, $COMPANY, $EMAIL_BODY are supported).
 The script will:
 Load and validate contacts (warns about missing/invalid emails).
 Generate a short company-specific subject and body per contact using Gemini (model models/gemini-2.5-flash).
 Save results to generated_emails.json (for automation) and generated_emails.txt (for quick review).
 Optional: view a sample email when prompted.
 Change the sender name/title (apollo.py)
-The default template introduces Parth Sethi, Executive Head. To change the sender identity for another user:
+The default template introduces Janhavi Sharma, Financial Analyst. To change the sender identity for another user:
 
 Quick run-time change: When asked "Do you want to customize the email template?", answer yes and paste a new template that uses your own name/title. Example:
 Respected $TITLE $LAST_NAME,
 
-I am Your Name, Your Role at 180 Degrees Consulting, IIT Kharagpur. $EMAIL_BODY
+I am Your Name, Your Role at IFSA, IIT Kharagpur. $EMAIL_BODY
 
 Best regards,
 Your Name
@@ -48,7 +48,7 @@ Each entry looks like:
 {
   "contact": "First Last",
   "email_address": "user@example.com",
-  "subject": "180DC IIT Kharagpur X ExampleCo",
+  "subject": "IFSA IIT Kharagpur X ExampleCo",
   "generated_email": "Respected Dr Last,\n...\nBest regards,\nParth Sethi\n..."
 }
 This file is the input for the sender script.
@@ -58,11 +58,11 @@ Ensure generated_emails.json is present in the project root (created by apollo.p
 Run the sender:
 python send_emails_smtp.py
 First run will create credentials.py. Enter:
-Gmail address (defaults to parthsethi@180dc.org if you press Enter).
+Gmail address.
 Gmail App Password (create in Google Account > Security > App passwords).
 The script:
 Imports credentials from credentials.py.
-Uses CC recipients hardcoded in the script (arghyadip.pal@180dc.org, mishra.moulik@180dc.org). Edit cc_emails in send_emails_smtp.py if you want to change these.
+Uses CC recipients hardcoded in the script. Edit cc_emails in send_emails_smtp.py if you want to change these.
 Reads all messages from generated_emails.json.
 Sends a test email to your own address to verify SMTP login.
 Asks for confirmation (Do you want to send X emails?). Type yes to proceed.
